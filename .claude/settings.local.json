@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm show:*)",
+      "Bash(node -e \"const v=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\); const arr=JSON.parse\\(v\\); console.log\\(arr.slice\\(-10\\).join\\('\\\\n'\\)\\)\")",
+      "Bash(node -e \"process.stdin.resume\\(\\); let d=''; process.stdin.on\\('data',c=>d+=c\\); process.stdin.on\\('end',\\(\\)=>{const arr=JSON.parse\\(d\\); console.log\\(arr.slice\\(-15\\).join\\('\\\\n'\\)\\)}\\)\")",
+      "Bash(xxd \"C:/xampp/htdocs/cv-architect-app/node_modules/react-native-google-mobile-ads/src/common/constants.ts\")",
+      "Bash(npm install:*)",
+      "Bash(npx eas:*)",
+      "Bash(ls eas.json)",
+      "Bash(cat eas.json)",
+      "Bash(npx expo:*)",
+      "Bash(./gradlew assembleDebug)"
+    ]
+  }
+}

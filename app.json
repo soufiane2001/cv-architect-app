@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "The CV Architect",
+    "slug": "cv-architect",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#F7F4EF"
+    },
+    "scheme": "cvarchitect",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.cvarchitect.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F7F4EF"
+      },
+      "package": "com.cvarchitect.app"
+    },
+    "plugins": [
+      "expo-router",
+[
+        "expo-image-picker",
+        { "photosPermission": "Accès à vos photos pour ajouter une photo sur votre CV." }
+      ],
+      [
+        "./plugins/withGoogleMobileAds",
+        {
+          "androidAppId": "ca-app-pub-9374827284535461~9818535525",
+          "iosAppId": "ca-app-pub-9374827284535461~9818535525"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
