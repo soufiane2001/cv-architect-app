@@ -4,3 +4,15 @@
 
 expo-env.d.ts
 # @end expo-cli
+# Android
+android/app/release.keystore
+android/.gradle/
+android/app/build/
+
+# Node
+node_modules/
+
+# Expo
+.expo/
+dist/
+.claude/
