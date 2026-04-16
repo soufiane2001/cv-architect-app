@@ -14,7 +14,7 @@ import { Colors } from '@/constants/theme';
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     'Inter-Regular': Inter_400Regular,
     'Inter-Medium':  Inter_500Medium,
     'Inter-Bold':    Inter_700Bold,
@@ -22,10 +22,21 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    if (fontsLoaded) SplashScreen.hideAsync();
-  }, [fontsLoaded]);
+    if (fontsLoaded || fontError) SplashScreen.hideAsync();
+  }, [fontsLoaded, fontError]);
 
-  if (!fontsLoaded) return null;
+  useEffect(() => {
+    (async () => {
+      try {
+        const { MobileAds } = require('react-native-google-mobile-ads');
+        await MobileAds().initialize();
+      } catch {
+        // Native module unavailable — no-op
+      }
+    })();
+  }, []);
+
+  if (!fontsLoaded && !fontError) return null;
 
   return (
     <>

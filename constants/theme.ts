@@ -1,6 +1,8 @@
 export const Colors = {
-  primary:   '#1B7A7A',
-  primaryLight: '#E6F3F3',
+  primary:      '#1A5EAB',   // logo blue (CV)
+  primaryLight: '#E3EEF9',
+  accent:       '#38A23B',   // logo green (GRATUIT)
+  accentLight:  '#E6F4E6',
   ink:       '#13110D',
   ink2:      '#3D3A34',
   ink3:      '#6B6760',
@@ -42,7 +44,7 @@ export const Fonts = {
 } as const;
 
 export const PALETTE = [
-  '#1B7A7A',
+  '#1A5EAB',
   '#2563EB',
   '#7C3AED',
   '#DC2626',

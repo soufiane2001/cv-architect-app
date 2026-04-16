@@ -10,7 +10,13 @@
       "Bash(ls eas.json)",
       "Bash(cat eas.json)",
       "Bash(npx expo:*)",
-      "Bash(./gradlew assembleDebug)"
+      "Bash(./gradlew assembleDebug)",
+      "Bash(eas *)",
+      "Bash(node *)",
+      "WebFetch(domain:expo.dev)",
+      "Bash(java -version)",
+      "Bash(keytool)",
+      "Bash(gh --version)"
     ]
   }
 }

@@ -1,6 +1,8 @@
 import { ScrollView, View, Text, TouchableOpacity, StyleSheet, Dimensions, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, FontSize, Spacing, TEMPLATES } from '@/constants/theme';
+
+const LOGO = require('@/assets/logo.png');
 import AdBanner from '@/components/AdBanner';
 
 const { width } = Dimensions.get('window');
@@ -24,7 +26,7 @@ const FEATURES = [
 ];
 
 const TEMPLATE_COLORS: Record<string, string> = {
-  modern: '#1B7A7A',
+  modern: '#1A5EAB',
   professional: '#1F2937',
   creative: '#7C3AED',
   simple: '#374151',
@@ -47,7 +49,7 @@ export default function HomeScreen() {
     <ScrollView style={s.root} contentContainerStyle={s.scroll} showsVerticalScrollIndicator={false}>
       {/* Top bar */}
       <View style={s.topbar}>
-        <Text style={s.logo}>The CV Architect</Text>
+        <Image source={LOGO} style={s.logoImg} resizeMode="contain" />
       </View>
 
       {/* Hero */}
@@ -175,11 +177,9 @@ const s = StyleSheet.create({
     borderBottomColor: Colors.rule,
     backgroundColor: Colors.paper,
   },
-  logo: {
-    fontFamily: 'Inter-Black',
-    fontSize: FontSize.md,
-    color: Colors.ink,
-    letterSpacing: -0.3,
+  logoImg: {
+    height: 36,
+    width: 160,
   },
 
   hero: {

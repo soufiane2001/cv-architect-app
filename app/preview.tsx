@@ -14,7 +14,7 @@ import AdBanner from '@/components/AdBanner';
 import AdVideoModal from '@/components/AdVideoModal';
 
 const TEMPLATE_COLORS: Record<string, string> = {
-  modern: '#1B7A7A', professional: '#1F2937', creative: '#7C3AED',
+  modern: '#1A5EAB', professional: '#1F2937', creative: '#7C3AED',
   simple: '#374151', canadian: '#D00000', europass: '#003399', ats: '#111111',
 };
 

@@ -30,7 +30,7 @@ function initials(first: string, last: string): string {
 // ─── MODERN ────────────────────────────────────────────────────────────────
 function renderModern(data: CVData, photo: string | null): string {
   const p = data.personalInfo;
-  const col = data.color || '#1B7A7A';
+  const col = data.color || '#1A5EAB';
   const fullName = [p.firstName, p.lastName].filter(Boolean).join(' ') || 'Votre Nom';
   const avatar = photo
     ? `<div class="avatar">${photoTag(photo, 'circle', 100)}</div>`
@@ -115,7 +115,7 @@ function renderModern(data: CVData, photo: string | null): string {
 // ─── PROFESSIONAL ───────────────────────────────────────────────────────────
 function renderProfessional(data: CVData, photo: string | null): string {
   const p = data.personalInfo;
-  const col = data.color || '#1B7A7A';
+  const col = data.color || '#1A5EAB';
   const fullName = [p.firstName, p.lastName].filter(Boolean).join(' ') || 'Votre Nom';
   const photoBlock = photo
     ? `<div class="hphoto">${photoTag(photo, 'square', 100)}</div>`
@@ -178,7 +178,7 @@ function renderProfessional(data: CVData, photo: string | null): string {
 // ─── CREATIVE ───────────────────────────────────────────────────────────────
 function renderCreative(data: CVData, photo: string | null): string {
   const p = data.personalInfo;
-  const col = data.color || '#1B7A7A';
+  const col = data.color || '#1A5EAB';
   const fullName = [p.firstName, p.lastName].filter(Boolean).join(' ') || 'Votre Nom';
   const avatarBlock = photo
     ? `<div class="cavatar">${photoTag(photo, 'square', 100)}</div>`
@@ -236,7 +236,7 @@ function renderCreative(data: CVData, photo: string | null): string {
 // ─── SIMPLE ─────────────────────────────────────────────────────────────────
 function renderSimple(data: CVData, photo: string | null): string {
   const p = data.personalInfo;
-  const col = data.color || '#1B7A7A';
+  const col = data.color || '#1A5EAB';
   const fullName = [p.firstName, p.lastName].filter(Boolean).join(' ') || 'Votre Nom';
   const photoBlock = photo
     ? `<div class="sphoto">${photoTag(photo, 'circle', 90)}</div>`
@@ -503,7 +503,7 @@ export function buildCVHtml(data: CVData, photo: string | null): string {
   <meta name="viewport" content="width=794, initial-scale=1">
   <style>
     html,body{margin:0;padding:0;width:794px;min-height:1123px;background:#fff;}
-    :root{--cv-primary:${data.color || '#1B7A7A'};}
+    :root{--cv-primary:${data.color || '#1A5EAB'};}
   </style>
 </head>
 <body>${body}</body>

@@ -90,7 +90,7 @@ const DEFAULT_CV: CVData = {
   permis: '',
   nationalite: '',
   template: 'modern',
-  color: '#1B7A7A',
+  color: '#1A5EAB',
 };
 
 const STORAGE_KEY = '@cv_data';

@@ -83,7 +83,7 @@ const ARTICLES = [
 ];
 
 const FAQ = [
-  { q: 'Le CV Architect est-il vraiment gratuit ?', a: 'Oui, totalement. Aucun compte requis, aucun paiement caché. Créez et exportez autant de CVs que vous voulez.' },
+  { q: 'CVGratuit Builder est-il vraiment gratuit ?', a: 'Oui, totalement. Aucun compte requis, aucun paiement caché. Créez et exportez autant de CVs que vous voulez.' },
   { q: 'Puis-je créer un CV en français canadien ?', a: 'Absolument. Le modèle "Canadien" respecte les standards québécois : sans photo, sans informations personnelles superflues, format nord-américain.' },
   { q: 'Mes données sont-elles sauvegardées ?', a: 'Toutes vos données restent sur votre appareil. Nous n\'utilisons aucun serveur externe pour stocker vos informations personnelles.' },
 ];

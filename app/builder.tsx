@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
   ScrollView, View, Text, TextInput, TouchableOpacity, StyleSheet,
-  Alert, Image, KeyboardAvoidingView, Platform, Switch
+  Alert, Image, KeyboardAvoidingView, Platform, Switch, Modal
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
@@ -36,6 +36,74 @@ function Field({
         autoCapitalize="none"
         autoCorrect={false}
       />
+    </View>
+  );
+}
+
+// ─── Month/Year date picker ───────────────────────────────────────────────────
+
+const MONTHS_FR = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+
+function DatePickerField({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
+  const [visible, setVisible] = useState(false);
+  const [selMonth, setSelMonth] = useState(0);
+  const [selYear, setSelYear] = useState(new Date().getFullYear());
+
+  const openPicker = () => {
+    const parts = value ? value.split('/') : [];
+    setSelMonth(parts[0] ? parseInt(parts[0], 10) - 1 : new Date().getMonth());
+    setSelYear(parts[1] ? parseInt(parts[1], 10) : new Date().getFullYear());
+    setVisible(true);
+  };
+
+  const confirm = () => {
+    const mm = String(selMonth + 1).padStart(2, '0');
+    onChange(`${mm}/${selYear}`);
+    setVisible(false);
+  };
+
+  return (
+    <View style={s.field}>
+      <Label>{label}</Label>
+      <TouchableOpacity style={s.dateBtn} onPress={openPicker} activeOpacity={0.7}>
+        <Text style={[s.dateBtnText, !value && { color: Colors.ink3 }]}>{value || 'MM/AAAA'}</Text>
+        <Text style={s.dateBtnChevron}>▾</Text>
+      </TouchableOpacity>
+      <Modal visible={visible} transparent animationType="fade" onRequestClose={() => setVisible(false)}>
+        <View style={s.dpBackdrop}>
+          <View style={s.dpCard}>
+            <View style={s.dpYearRow}>
+              <TouchableOpacity onPress={() => setSelYear(y => y - 1)} style={s.dpArrow} activeOpacity={0.7}>
+                <Text style={s.dpArrowText}>‹</Text>
+              </TouchableOpacity>
+              <Text style={s.dpYearText}>{selYear}</Text>
+              <TouchableOpacity onPress={() => setSelYear(y => y + 1)} style={s.dpArrow} activeOpacity={0.7}>
+                <Text style={s.dpArrowText}>›</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={s.dpMonthGrid}>
+              {MONTHS_FR.map((m, i) => (
+                <TouchableOpacity
+                  key={i}
+                  style={[s.dpMonthCell, selMonth === i && s.dpMonthCellActive]}
+                  onPress={() => setSelMonth(i)}
+                  activeOpacity={0.7}
+                >
+                  <Text style={[s.dpMonthText, selMonth === i && s.dpMonthTextActive]}>{m}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <View style={s.dpActions}>
+              <TouchableOpacity onPress={() => { onChange(''); setVisible(false); }} style={s.dpClearBtn} activeOpacity={0.8}>
+                <Text style={s.dpClearText}>Effacer</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={confirm} style={s.dpConfirmBtn} activeOpacity={0.8}>
+                <Text style={s.dpConfirmText}>Confirmer</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -125,11 +193,11 @@ function ExperienceEntry({ exp, onChange, onRemove }: { exp: Experience; onChang
       <Field label="LIEU" value={exp.location} onChangeText={set('location')} placeholder="Paris, France" />
       <View style={s.dateRow}>
         <View style={{ flex: 1, marginRight: 8 }}>
-          <Field label="DÉBUT" value={exp.startDate} onChangeText={set('startDate')} placeholder="01/2022" />
+          <DatePickerField label="DÉBUT" value={exp.startDate} onChange={set('startDate')} />
         </View>
         {!exp.current && (
           <View style={{ flex: 1 }}>
-            <Field label="FIN" value={exp.endDate} onChangeText={set('endDate')} placeholder="12/2024" />
+            <DatePickerField label="FIN" value={exp.endDate} onChange={set('endDate')} />
           </View>
         )}
       </View>
@@ -162,11 +230,11 @@ function EducationEntry({ edu, onChange, onRemove }: { edu: Education; onChange:
       <Field label="MENTION" value={edu.mention} onChangeText={set('mention')} placeholder="Très bien" />
       <View style={s.dateRow}>
         <View style={{ flex: 1, marginRight: 8 }}>
-          <Field label="DÉBUT" value={edu.startDate} onChangeText={set('startDate')} placeholder="09/2019" />
+          <DatePickerField label="DÉBUT" value={edu.startDate} onChange={set('startDate')} />
         </View>
         {!edu.current && (
           <View style={{ flex: 1 }}>
-            <Field label="FIN" value={edu.endDate} onChangeText={set('endDate')} placeholder="06/2021" />
+            <DatePickerField label="FIN" value={edu.endDate} onChange={set('endDate')} />
           </View>
         )}
       </View>
@@ -332,7 +400,7 @@ function StepCompetences({ cvData, update }: any) {
       <Text style={[s.sectionTitle, { marginTop: Spacing.xl }]}>Certifications</Text>
       <Field label="NOM" value={certName} onChangeText={setCertName} placeholder="AWS Certified Developer" />
       <Field label="ORGANISME" value={certOrg} onChangeText={setCertOrg} placeholder="Amazon Web Services" />
-      <Field label="DATE" value={certDate} onChangeText={setCertDate} placeholder="06/2024" />
+      <DatePickerField label="DATE" value={certDate} onChange={setCertDate} />
       <TouchableOpacity onPress={addCert} style={[s.addBtn, { marginBottom: Spacing.md }]} activeOpacity={0.8}>
         <Text style={s.addBtnText}>+ Ajouter la certification</Text>
       </TouchableOpacity>
@@ -359,7 +427,7 @@ function StepCompetences({ cvData, update }: any) {
 // ─── Step 4 : template + color ───────────────────────────────────────────────
 
 const TEMPLATE_COLORS: Record<string, string> = {
-  modern: '#1B7A7A', professional: '#1F2937', creative: '#7C3AED',
+  modern: '#1A5EAB', professional: '#1F2937', creative: '#7C3AED',
   simple: '#374151', canadian: '#D00000', europass: '#003399', ats: '#111111',
 };
 
@@ -749,5 +817,115 @@ const s = StyleSheet.create({
   colorDotActive: {
     borderWidth: 2,
     borderColor: Colors.ink,
+  },
+
+  // Date picker field button
+  dateBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: Colors.rule,
+    backgroundColor: Colors.white,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+  dateBtnText: {
+    fontFamily: 'Inter-Regular',
+    fontSize: FontSize.sm,
+    color: Colors.ink,
+  },
+  dateBtnChevron: {
+    fontSize: 12,
+    color: Colors.ink3,
+  },
+
+  // Date picker modal
+  dpBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.45)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 24,
+  },
+  dpCard: {
+    width: '100%',
+    backgroundColor: Colors.white,
+    padding: Spacing.lg,
+  },
+  dpYearRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: Spacing.md,
+    gap: 24,
+  },
+  dpArrow: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+  },
+  dpArrowText: {
+    fontSize: 24,
+    color: Colors.primary,
+    lineHeight: 28,
+  },
+  dpYearText: {
+    fontFamily: 'Inter-Bold',
+    fontSize: 20,
+    color: Colors.ink,
+    minWidth: 64,
+    textAlign: 'center',
+  },
+  dpMonthGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    justifyContent: 'center',
+    marginBottom: Spacing.lg,
+  },
+  dpMonthCell: {
+    width: '22%',
+    paddingVertical: 9,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: Colors.rule,
+  },
+  dpMonthCellActive: {
+    backgroundColor: Colors.primary,
+    borderColor: Colors.primary,
+  },
+  dpMonthText: {
+    fontSize: FontSize.sm,
+    color: Colors.ink2,
+    fontFamily: 'Inter-Medium',
+  },
+  dpMonthTextActive: {
+    color: Colors.white,
+  },
+  dpActions: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: 12,
+  },
+  dpClearBtn: {
+    paddingHorizontal: 16,
+    paddingVertical: 9,
+    borderWidth: 1,
+    borderColor: Colors.rule,
+  },
+  dpClearText: {
+    fontSize: FontSize.sm,
+    color: Colors.ink3,
+    fontFamily: 'Inter-Medium',
+  },
+  dpConfirmBtn: {
+    paddingHorizontal: 16,
+    paddingVertical: 9,
+    backgroundColor: Colors.primary,
+  },
+  dpConfirmText: {
+    fontSize: FontSize.sm,
+    color: Colors.white,
+    fontFamily: 'Inter-Medium',
   },
 });
