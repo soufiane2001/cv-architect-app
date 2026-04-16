@@ -7,8 +7,8 @@ buildscript {
         compileSdkVersion = Integer.parseInt(findProperty('android.compileSdkVersion') ?: '34')
         targetSdkVersion = Integer.parseInt(findProperty('android.targetSdkVersion') ?: '34')
         kotlinVersion = findProperty('android.kotlinVersion') ?: '1.9.23'
-
         ndkVersion = "26.1.10909125"
+        expoProvidesDefaultConfig = true
     }
     repositories {
         google()
@@ -22,15 +22,6 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
-
-subprojects {
-    plugins.withId('com.android.library') {
-        android { compileSdkVersion rootProject.ext.compileSdkVersion }
-    }
-    plugins.withId('com.android.application') {
-        android { compileSdkVersion rootProject.ext.compileSdkVersion }
-    }
-}
 
 allprojects {
     repositories {
