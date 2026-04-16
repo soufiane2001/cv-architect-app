@@ -34,6 +34,11 @@ jobs:
       - name: Grant Gradle execute permission
         run: chmod +x android/gradlew
 
+      - name: Patch expo-print compileSdkVersion bug
+        run: |
+          GRADLE_FILE="node_modules/expo-print/android/build.gradle"
+          sed -i 's/namespace "expo.modules.print"/namespace "expo.modules.print"\n  compileSdkVersion 34/' $GRADLE_FILE
+
       - name: Decode keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | tr -d ' \n\r' | base64 --decode > android/app/release.keystore
