@@ -23,6 +23,16 @@ buildscript {
 
 apply plugin: "com.facebook.react.rootproject"
 
+subprojects {
+    afterEvaluate {
+        if (it.plugins.hasPlugin('com.android.library') || it.plugins.hasPlugin('com.android.application')) {
+            android {
+                compileSdkVersion rootProject.ext.compileSdkVersion
+            }
+        }
+    }
+}
+
 allprojects {
     repositories {
         maven {
