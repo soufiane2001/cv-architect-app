@@ -31,8 +31,10 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Grant Gradle execute permission
-        run: chmod +x android/gradlew
+      - name: Grant execute permissions
+        run: |
+          chmod +x android/gradlew
+          chmod +x node_modules/react-native/sdks/hermesc/linux64-bin/hermesc || true
 
       - name: Patch expo-print compileSdkVersion bug
         run: |
