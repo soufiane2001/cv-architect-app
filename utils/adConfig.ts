@@ -11,7 +11,7 @@ try {
   // Native module unavailable — ads disabled for this build
 }
 
-const IS_DEV = true; // TODO: remettre __DEV__ avant publication Play Store
+const IS_DEV = __DEV__;
 
 const ANDROID_IDS = {
   banner:       'ca-app-pub-9374827284535461/9589570275',

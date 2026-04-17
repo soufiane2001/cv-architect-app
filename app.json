@@ -22,9 +22,7 @@
         "backgroundColor": "#F7F4EF"
       },
       "package": "com.cvgratuit.builder",
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      "permissions": []
     },
     "plugins": [
       "expo-router",

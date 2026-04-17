@@ -28,11 +28,26 @@ export default function RootLayout() {
   useEffect(() => {
     (async () => {
       try {
-        const { MobileAds } = require('react-native-google-mobile-ads');
+        const {
+          MobileAds,
+          AdsConsentStatus,
+          AdsConsentDebugGeography,
+        } = require('react-native-google-mobile-ads');
+
+        // Demande de consentement RGPD (obligatoire UE)
+        try {
+          const { AdsConsent } = require('react-native-google-mobile-ads');
+          const consentInfo = await AdsConsent.requestInfoUpdate();
+          if (
+            consentInfo.isConsentFormAvailable &&
+            consentInfo.status === AdsConsentStatus.REQUIRED
+          ) {
+            await AdsConsent.showForm();
+          }
+        } catch { /* pays hors UE ou formulaire indisponible */ }
+
         await MobileAds().setRequestConfiguration({
-          // Ajoute ici le hash de ton appareil (visible dans logcat au 1er lancement)
-          // Ex: testDeviceIdentifiers: ['ABCDEF1234567890']
-          testDeviceIdentifiers: [],
+          requestNonPersonalizedAdsOnly: true,
         });
         await MobileAds().initialize();
       } catch {
