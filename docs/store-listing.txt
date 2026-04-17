@@ -1,0 +1,72 @@
+===== GOOGLE PLAY STORE LISTING =====
+App: CVGratuit Builder
+Package: com.cvgratuit.builder
+
+----- TITRE (max 30 caractères) -----
+CVGratuit - Créer un CV PDF
+
+----- DESCRIPTION COURTE (max 80 caractères) -----
+Créez un CV professionnel en PDF en quelques minutes. Gratuit.
+
+----- DESCRIPTION LONGUE (max 4000 caractères) -----
+CVGratuit Builder est l'application la plus simple pour créer un CV professionnel sur votre téléphone — gratuitement, sans inscription, et sans connexion internet.
+
+✅ POURQUOI CHOISIR CVGRATUIT ?
+
+• 100% gratuit — aucun abonnement, aucune limite cachée
+• Sans inscription — vos données restent sur votre téléphone
+• PDF haute qualité — prêt à envoyer aux recruteurs
+• Fonctionne hors ligne
+
+📄 7 MODÈLES PROFESSIONNELS
+
+Choisissez parmi 7 templates soigneusement conçus :
+• Moderne — design épuré et contemporain
+• Professionnel — sobre et efficace
+• Créatif — pour les profils artistiques
+• Simple — minimaliste et lisible
+• Canadien — format nord-américain
+• Europass — standard européen officiel
+• ATS — optimisé pour les systèmes de filtrage automatique
+
+🎨 PERSONNALISATION COMPLÈTE
+
+• Choisissez parmi 12 couleurs principales
+• Ajoutez votre photo de profil
+• Personnalisez chaque section selon vos besoins
+
+📋 SECTIONS DISPONIBLES
+
+• Informations personnelles (nom, contact, ville, titre)
+• Expériences professionnelles avec dates
+• Formation et diplômes
+• Compétences avec niveau de maîtrise
+• Langues parlées avec niveau
+• Certifications et formations complémentaires
+• Résumé / Profil professionnel
+
+📤 EXPORT FACILE
+
+• Génération PDF instantanée
+• Partagez directement par WhatsApp, email, ou sauvegardez sur votre téléphone
+• Compatible avec tous les appareils Android
+
+🔒 RESPECT DE VIE PRIVÉE
+
+Vos données sont stockées uniquement sur votre appareil. Nous ne collectons aucune information personnelle.
+
+Idéal pour : demandes d'emploi, stages, alternances, reconversions professionnelles.
+
+Téléchargez gratuitement et créez votre CV en moins de 10 minutes !
+
+----- CATÉGORIE -----
+Productivité
+
+----- TAGS / MOTS-CLÉS -----
+CV, curriculum vitae, créer CV, CV PDF, modèle CV, CV gratuit, CV professionnel, chercher emploi, candidature
+
+----- NOTE DE CONTENU -----
+Tout public (3+)
+Contient des publicités
+
+===== FIN =====
