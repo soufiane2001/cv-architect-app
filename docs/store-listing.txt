@@ -1,5 +1,5 @@
 ===== GOOGLE PLAY STORE LISTING =====
-App: CVGratuit Builder
+App: cv-gratuit 100%
 Package: com.cvgratuit.builder
 
 ----- TITRE (max 30 caractères) -----
@@ -9,7 +9,7 @@ CVGratuit - Créer un CV PDF
 Créez un CV professionnel en PDF en quelques minutes. Gratuit.
 
 ----- DESCRIPTION LONGUE (max 4000 caractères) -----
-CVGratuit Builder est l'application la plus simple pour créer un CV professionnel sur votre téléphone — gratuitement, sans inscription, et sans connexion internet.
+cv-gratuit 100% est l'application la plus simple pour créer un CV professionnel sur votre téléphone — gratuitement, sans inscription, et sans connexion internet.
 
 ✅ POURQUOI CHOISIR CVGRATUIT ?
 
