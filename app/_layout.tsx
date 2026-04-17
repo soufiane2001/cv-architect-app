@@ -29,6 +29,11 @@ export default function RootLayout() {
     (async () => {
       try {
         const { MobileAds } = require('react-native-google-mobile-ads');
+        await MobileAds().setRequestConfiguration({
+          // Ajoute ici le hash de ton appareil (visible dans logcat au 1er lancement)
+          // Ex: testDeviceIdentifiers: ['ABCDEF1234567890']
+          testDeviceIdentifiers: [],
+        });
         await MobileAds().initialize();
       } catch {
         // Native module unavailable — no-op

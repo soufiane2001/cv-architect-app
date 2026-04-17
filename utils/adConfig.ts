@@ -21,7 +21,7 @@ try {
 //   APP_ID:   ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX
 //   AD_UNIT:  ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
 
-const IS_DEV = __DEV__;
+const IS_DEV = true; // TODO: remettre __DEV__ avant publication Play Store
 
 const ANDROID_IDS = {
   banner:   'ca-app-pub-9374827284535461/9589570275',
