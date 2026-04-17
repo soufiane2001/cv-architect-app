@@ -7,6 +7,7 @@ import { useRouter } from 'expo-router';
 import * as ImagePicker from 'expo-image-picker';
 import { Colors, FontSize, Spacing, TEMPLATES, PALETTE } from '@/constants/theme';
 import { useCV, uid, CVData, Experience, Education, Language, Certification } from '@/hooks/useCV';
+import AdBanner from '@/components/AdBanner';
 
 const STEPS = ['Identité', 'Parcours', 'Compétences', 'Style'];
 
@@ -524,6 +525,9 @@ export default function BuilderScreen() {
         {step === 2 && <StepCompetences {...stepProps} />}
         {step === 3 && <StepStyle {...stepProps} />}
       </View>
+
+      {/* Banner ad — above navigation */}
+      <AdBanner />
 
       {/* Navigation */}
       <View style={s.navBar}>

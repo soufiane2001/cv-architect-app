@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   View, Text, TouchableOpacity, StyleSheet, ScrollView,
   ActivityIndicator, Alert, Platform, Modal
@@ -11,7 +11,15 @@ import { Colors, FontSize, Spacing, TEMPLATES, PALETTE } from '@/constants/theme
 import { useCV } from '@/hooks/useCV';
 import { buildCVHtml } from '@/utils/cvTemplates';
 import AdBanner from '@/components/AdBanner';
-import AdVideoModal from '@/components/AdVideoModal';
+import { AdIds } from '@/utils/adConfig';
+
+let InterstitialAd: any = null;
+let AdEventType: Record<string, string> = { CLOSED: 'closed', ERROR: 'error' };
+try {
+  const m = require('react-native-google-mobile-ads');
+  InterstitialAd = m.InterstitialAd;
+  AdEventType = m.AdEventType;
+} catch { /* native module unavailable */ }
 
 const TEMPLATE_COLORS: Record<string, string> = {
   modern: '#1A5EAB', professional: '#1F2937', creative: '#7C3AED',
@@ -25,19 +33,73 @@ export default function PreviewScreen() {
   const [exporting, setExporting] = useState(false);
   const [showTemplates, setShowTemplates] = useState(false);
   const [showColors, setShowColors] = useState(false);
-  const [showAdVideo, setShowAdVideo] = useState(false);
   const webviewRef = useRef<any>(null);
+  const interstitialRef = useRef<any>(null);
+  const pendingExportRef = useRef(false);
 
   const html = buildCVHtml(cvData, photo);
 
-  // Step 1: tap PDF → show video ad
-  const requestExport = () => {
-    setShowAdVideo(true);
+  useEffect(() => {
+    if (!InterstitialAd) return;
+    const ad = InterstitialAd.createForAdRequest(AdIds.interstitial, {
+      requestNonPersonalizedAdsOnly: true,
+    });
+    interstitialRef.current = ad;
+
+    const unsubClose = ad.addAdEventListener(AdEventType.CLOSED, () => {
+      if (pendingExportRef.current) {
+        pendingExportRef.current = false;
+        doExport();
+      }
+      // Preload next ad
+      ad.load();
+    });
+    const unsubError = ad.addAdEventListener(AdEventType.ERROR, () => {
+      if (pendingExportRef.current) {
+        pendingExportRef.current = false;
+        doExport();
+      }
+    });
+
+    ad.load();
+    return () => { unsubClose(); unsubError(); };
+  }, []);
+
+  const requestExport = async () => {
+    if (!InterstitialAd || !interstitialRef.current) {
+      doExport();
+      return;
+    }
+    try {
+      const loaded = await interstitialRef.current.isLoaded?.() ?? false;
+      if (loaded) {
+        pendingExportRef.current = true;
+        await interstitialRef.current.show();
+      } else {
+        pendingExportRef.current = true;
+        interstitialRef.current.load();
+        // show as soon as loaded via CLOSED listener fallback
+        const unsub = interstitialRef.current.addAdEventListener(
+          interstitialRef.current.constructor?.Events?.LOADED ?? 'loaded',
+          async () => {
+            unsub?.();
+            try { await interstitialRef.current.show(); } catch { doExport(); }
+          }
+        );
+        // timeout fallback: if ad doesn't load in 5s, export anyway
+        setTimeout(() => {
+          if (pendingExportRef.current) {
+            pendingExportRef.current = false;
+            doExport();
+          }
+        }, 5000);
+      }
+    } catch {
+      doExport();
+    }
   };
 
-  // Step 2: ad completed → generate & share PDF
-  const handleAdComplete = async () => {
-    setShowAdVideo(false);
+  const doExport = async () => {
     try {
       setExporting(true);
       const { uri } = await Print.printToFileAsync({ html, base64: false });
@@ -125,12 +187,8 @@ export default function PreviewScreen() {
         />
       </View>
 
-      {/* 10s video ad modal before PDF download */}
-      <AdVideoModal
-        visible={showAdVideo}
-        onComplete={handleAdComplete}
-        onDismiss={() => setShowAdVideo(false)}
-      />
+      {/* Banner ad — bottom of preview */}
+      <AdBanner />
 
       {/* Template selector modal */}
       <Modal visible={showTemplates} animationType="slide" transparent onRequestClose={() => setShowTemplates(false)}>

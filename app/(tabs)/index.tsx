@@ -67,6 +67,9 @@ export default function HomeScreen() {
         <Text style={s.heroNote}>Plus de 12 000 CVs créés · Noté 4.8/5</Text>
       </View>
 
+      {/* Banner ad — after hero */}
+      <AdBanner style={{ marginVertical: 2 }} />
+
       <View style={s.divider} />
 
       {/* Features */}
