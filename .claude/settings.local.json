@@ -19,7 +19,8 @@
       "Bash(gh --version)",
       "Bash(keytool -genkey -v -keystore release.keystore -alias cvgratuit -keyalg RSA -keysize 2048 -validity 10000 -storepass cvgratuit2024 -keypass cvgratuit2024 -dname 'CN=CVGratuit Builder, OU=Mobile, O=CVGratuit, L=Casablanca, ST=Casablanca, C=MA')",
       "Bash(xargs grep *)",
-      "Bash(find C:/xampp/htdocs/cv-architect-app/node_modules -name \"*.gradle\" -exec grep -l \"compileSdkVersion\" {} \\\\;)"
+      "Bash(find C:/xampp/htdocs/cv-architect-app/node_modules -name \"*.gradle\" -exec grep -l \"compileSdkVersion\" {} \\\\;)",
+      "Bash(identify C:/xampp/htdocs/cv-architect-app/assets/logo.png)"
     ]
   }
 }
